@@ -1,0 +1,34 @@
+@startuml
+autonumber
+participant BDMS as bd
+participant ECBackup as ec
+actor user as user
+user -> ec : 访问纳管令牌界面 新建纳管令牌
+ec -> ec : delegation_token表生成一条记录
+user -> bd : 输入纳管令牌,新增备份域
+bd -> ec : 生成 accessKey,并附带apiEndpoint参数, 请求纳管 ECBackup
+ec -> bd : 纳管成功并告知状态 \n management_info 生成一条记录 记录 access_key/secret_key/platform_api_endpoint
+ec -> bd : 请求 BDMS 并 获取 WorkFlow 相关信息 (Node/Chain)
+user -> ec : 访问 流程编排页面是
+bd -> ec : 获取所有可用的流程节点信息 (查询 flow_node)
+user -> ec : 配置 流程模板 (完整的流程编排链路)
+ec -> bd : 持久化流程链路 到 flow_chain表
+bd -> bd : 定时/手动 触发恢复策略
+bd -> ec : 调用恢复演练 的 立即执行接口
+ec -> bd : 将立即执行恢复演练的事件,通知到 BDMS 的work-flow 模块
+bd -> ec : 查询 flow_chain 获取完成的流程,并逐步调用 ECBackup
+bd -> bd : 通过agent发来的数据库变更事件,监听恢复演练已经执行完成,并将执行结果落库
+@enduml
+
+'1. 如何重新纳管 备份域 (为了在同一台机子上重复纳管 ECBackup,方便自测)
+'2. ECBackup 回调获取 workFlow 的地址是哪个
+'3. ECBackup Flow 配置时 Node 是否能正常显示
+'4.
+'
+'
+'
+'
+'
+'
+'
+'
