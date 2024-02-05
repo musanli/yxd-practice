@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    log-abandoned: true #关闭abandoned连接时输出错误日志
+    remove-abandoned: true #超过时间限制是否回收
+    remove-abandoned-timeout: 180 #超时时间(以秒数为单位)
+    max-wait: 60000 # 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒
+    test-while-idle: true # 申请连接的时候检测
+    validation-query: select 1 #检测数据库的查询语句
+    test-on-borrow: true # 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能
+    min-evictable-idle-time-millis: 600000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    time-between-eviction-runs-millis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+

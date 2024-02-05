@@ -1,15 +1,18 @@
 package org.example;
 
 
-import javax.swing.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import cn.hutool.core.date.DateUtil;
+import lombok.SneakyThrows;
+import org.example.schedule.quartz.MyJob;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+
+import java.math.BigDecimal;
 
 public class Main {
+    @SneakyThrows
     public static void main(String[] args) {
-        AtomicInteger atomicInteger = new AtomicInteger();
-        System.out.println(atomicInteger.get());
-        System.out.println(atomicInteger.addAndGet(-10));
-        System.out.println(atomicInteger.addAndGet(1));
+        System.out.println(new BigDecimal(10).multiply(new BigDecimal("0.9")).intValue());
     }
 
 }

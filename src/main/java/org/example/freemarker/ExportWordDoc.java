@@ -10,10 +10,6 @@ import java.util.Map;
 
 public class ExportWordDoc {
     public static void main(String[] args) {
-        System.out.println(ExportWordDoc.class.getResource("/"));
-        System.out.println(ExportWordDoc.class.getResource(""));
-        System.out.println(ExportWordDoc.class.getResource("/org/example/freemarker"));
-
         try {
             // 创建FreeMarker配置
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_31);
