@@ -1,20 +1,29 @@
 package org.example;
 
-
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONObject;
-import lombok.SneakyThrows;
-import org.example.schedule.quartz.MyJob;
-import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
-
-import java.math.BigDecimal;
+import java.util.*;
 
 public class Main {
-    @SneakyThrows
     public static void main(String[] args) {
-        System.out.println(new BigDecimal(10).multiply(new BigDecimal("0.9")).intValue());
+        // 使用ImmutableList初始化一个List
+        List<String> userNames = new ArrayList<String>() {{
+            add("Hollis");
+            add("hollis");
+            add("HollisChuang");
+            add("H");
+        }};
+        InheritableThreadLocal<String> inheritableThreadLocal = new InheritableThreadLocal<>();
+        inheritableThreadLocal.set("Hollis");
+        inheritableThreadLocal.get();
+//        new Thread()
+        Iterator iterator = userNames.iterator();
+        do {
+            if (!iterator.hasNext())
+                break;
+            String userName = (String) iterator.next();
+            if (userName.equals("Hollis"))
+                userNames.remove(userName);
+        } while (true);
+        System.out.println(userNames);
     }
 
 }
