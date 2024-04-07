@@ -6,17 +6,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.Duration;
 
 @RestController
 @SpringBootApplication
 @ServletComponentScan
+@EnableTransactionManagement
 public class ExampleApplication implements InitializingBean {
 
     @Autowired
     Environment environment;
     public static void main(String[] args) {
-        SpringApplication.run(ExampleApplication.class, args);
+        System.out.println(new NullPointerException().getMessage() == null);
+        System.out.println(new NullPointerException().toString());
+        System.out.println(Duration.ofSeconds(1).toMillis());
+//        SpringApplication.run(ExampleApplication.class, args);C
     }
 
     @Override

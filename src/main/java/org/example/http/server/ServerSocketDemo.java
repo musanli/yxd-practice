@@ -1,5 +1,7 @@
 package org.example.http.server;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +20,8 @@ public class ServerSocketDemo {
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client connected: " + clientSocket.getInetAddress());
+                StringBuilder sb = new StringBuilder();
+                sb.append("Client connected: \t\t" + clientSocket.getInetAddress()).append("\n");
 
                 try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -30,7 +33,7 @@ public class ServerSocketDemo {
                         request.append(line).append("\r\n");
                     }
 
-                    System.out.println("Received request:\n" + request.toString());
+                    sb.append("Received request:\t\t" + request).append("\n");
 
                     // Parse request to extract method, headers, body, params, cookies, etc.
                     String[] requestLines = request.toString().split("\r\n");
@@ -46,13 +49,10 @@ public class ServerSocketDemo {
                         }
                     }
 
-                    // ... (parse request here)
-
-                    // Print request information to console
-                    System.out.println("Method: " + method);
-                    System.out.println("Headers: " + headers);
-                    System.out.println("Params: " + params);
-                    System.out.println("Body: " + body);
+                    sb.append("Method:\t\t" + method);
+                    sb.append("Headers:\t\t" + headers);
+                    sb.append("Params:\t\t" + params);
+                    sb.append("Body:\t\t" + body);
 
                     // Prepare response JSON
                     String jsonResponse = "{\"method\": \"" + method + "\", \"headers\": " + headers.toString() + ", \"params\": " + params.toString() + ", \"body\": \"" + body + "\"}";
@@ -73,4 +73,5 @@ public class ServerSocketDemo {
             e.printStackTrace();
         }
     }
+
 }
